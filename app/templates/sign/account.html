@@ -1,0 +1,13 @@
+{% extends 'default.html' %}
+
+{% block title %}
+	Account
+{% endblock title %}
+
+{% block content %}
+    <h2>Личный кабинет</h2>
+	<hr>
+	<button>
+		<a href="{% url 'profile' pk=request.user.pk %}">Настройка профиля</a>
+	</button>
+{% endblock content %}

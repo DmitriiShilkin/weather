@@ -1,0 +1,15 @@
+{% extends "default.html" %}
+
+{% block title %}
+	Expired code
+{% endblock title %}
+
+{% block content %}
+	<h2>Активация аккаунта</h2>
+	<hr>
+	<p>Срок действия кода истек</p>
+	<hr>
+	<a href="{% url 'activate' user=request.path|get_user %}">
+		<input type="button" value="Выслать новый код">
+	</a>
+{% endblock content %}

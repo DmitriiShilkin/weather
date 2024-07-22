@@ -1,0 +1,39 @@
+{% extends 'default.html' %}
+
+{% block title %}
+	Main
+{% endblock title %}
+
+{% block content %}
+    <h2>Добро пожаловать в сервис прогноза погоды!</h2>
+	<hr>
+    <p>Для получения погоды в выбранном городе введите его название и отправьте запрос"</p>
+	<form method="post" action="{% url 'index' %}">
+		{% csrf_token %}
+		<input list="cities" value="" type="text" name="city_name" placeholder="Название города" required/>
+		<datalist id="cities">
+			{% for name in cities_names %}
+				<option>{{ name }}</option>
+			{% endfor %}
+		</datalist>
+		<input type="submit" value="Отправить">
+	</form>
+	<hr>
+	{% if last_viewed %}
+		<p>В последний раз вы интересовались погодой в <strong>г. {{ last_viewed }}</strong>.
+			Хотите <a href="{% url 'repeat' cname=last_viewed %}">посмотреть</a> еще раз?</p>
+	{% endif %}
+	{% if result %}
+		<p><strong>г. {{ city }}</strong></p>
+		{% for string in result %}
+			{% if string == " " %}
+				<hr>
+			{% elif "Текущая" in string or "Прогноз" in string or "Дата" in string %}
+				<p><strong>{{ string }}</strong></p>	
+			{% else %}
+				<p>{{ string }}</p>			
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+
+{% endblock content %}

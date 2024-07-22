@@ -1,0 +1,21 @@
+{% extends 'default.html' %}
+
+{% block title %}
+	Profile
+{% endblock title %}
+
+{% block content %}
+    <h2>Профиль</h2>
+	<hr>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button>
+            <a href="{% url 'password_change' %}">Изменить пароль</a>
+        </button>
+        <hr>
+        <input type="button" onclick="history.back();" value="Назад"/>
+        <input type="submit" value="Сохранить"/>
+    </form>
+
+{% endblock content %}

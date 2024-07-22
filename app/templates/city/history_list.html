@@ -1,0 +1,50 @@
+{% extends 'default.html' %}
+
+{% load custom_tags %}
+
+{% block title %}
+	History
+{% endblock title %}
+
+{% block content %}
+    <h2>История запросов</h2>
+    <hr>
+	{% if cities %}
+		<table cellpadding="10" align="center">
+			<tr>
+				<th>Название</th>
+				<th>Страна</th>
+				<th>Регион</th>
+				<th>Количество запросов</th>
+			</tr>
+			{% for city in cities %}
+				<tr>
+					<td>{{ city.city__name }}</td>
+					<td>{{ city.city__country }}</td>
+					<td>{{ city.city__region }}</td>
+					<td>{{ city.count }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+	{% else %}
+		<p>Запросов нет!</p>
+	{% endif %}
+	<!-- Добавляем пагинацию на страницу -->
+	<!-- Информация о предыдущих страницах -->
+	{% if paginator.num_pages != 1 %}
+		{% if page_obj.has_previous %}
+			<a href="?{% url_replace page=1 %}">&laquo;Первая</a>
+			...
+			<a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+		{% endif %}
+		<!-- Информация о текущей странице -->
+		|{{ page_obj.number }}|
+		<!-- Информация о следующих страницах -->
+		{% if page_obj.has_next %}
+			<a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+			...
+			<a href="?{% url_replace page=page_obj.paginator.num_pages %}">Последняя&raquo;</a>
+		{% endif %}
+	{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends "default.html" %}
+
+{% block title %}
+	Log in
+{% endblock title %}
+
+{% block content %}
+	<h2> Войти в систему </h2>
+	<hr>
+	<form method="post" action="{% url 'login' %}">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button>
+            <a href="{% url 'password_reset' %}">Не помню пароль</a>
+        </button>
+		<hr>
+		<input type="submit" value="Продолжить">
+	</form>
+{% endblock content %}
